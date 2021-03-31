@@ -17,7 +17,8 @@ nginx:
       prefixapp: "/"
 ```
 
-### Below is docker-compose mapping the proxynginxpr.yaml configuration file
+
+> Below is docker-compose.yaml mapping the proxynginxpr.yaml configuration file.
 
 ```
 version: '2'
