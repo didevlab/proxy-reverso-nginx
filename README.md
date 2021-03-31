@@ -16,4 +16,4 @@ nginx:
       pathnginx: "grafana" #stay /grafana does not include / OK !? just the name
       prefixapp: "/"
 ```
-You will access: http://YOUR-IP-PROXY-REVERSE/**grafana**
+You will access: http://YOUR-IP-PROXY-REVERSE/grafana
