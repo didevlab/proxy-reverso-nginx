@@ -1,0 +1,9 @@
+portnginx: 80
+nginx:
+  hosts:
+    - name: 'grafana'
+      address:
+        - hostip: 192.168.15.7 #<IP-YOUR-GRAFANA>
+          port: 3000
+      pathnginx: "grafana" #stay /grafana does not include / OK !? just the name
+      prefixapp: "/"
