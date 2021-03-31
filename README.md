@@ -16,4 +16,25 @@ nginx:
       pathnginx: "grafana" #stay /grafana does not include / OK !? just the name
       prefixapp: "/"
 ```
-You will access: http://YOUR-IP-PROXY-REVERSE/grafana
+
+### Below is docker-compose mapping the proxynginxpr.yaml configuration file
+
+```
+version: '2'
+services:
+  nginx:
+    image: didevlab/proxy-reverse-nginx:1.0
+    container_name: nginx-proxy-reverso
+    restart: always
+    ports:
+      - '80:80'
+    volumes:
+      - ./proxynginxpr.yaml:/proxynginxpr.yaml
+    environment:
+      TZ: America/Sao_Paulo
+```
+
+```
+docker-compose up -d
+```
+- You will access: http://YOUR-IP-PROXY-REVERSE/grafana
