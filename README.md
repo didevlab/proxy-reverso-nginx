@@ -1,8 +1,8 @@
-# proxy-reverso-nginx
+# Proxy Reverso Nginx
 
-## The settings for some assp are in the conf folder
+## The settings for some apps are in the conf folder
 
-### You will configure only this file below:
+> You will configure only this file below:
 
 File: proxynginxpr.yaml
 ```
