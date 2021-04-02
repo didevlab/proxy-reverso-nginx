@@ -4,7 +4,7 @@
 
 > You will configure only this file below:
 
-File: proxynginxpr.yaml
+File example: proxynginxpr.yaml
 ```
 portnginx: 80
 nginx:
@@ -12,7 +12,7 @@ nginx:
     - name: 'grafana'
       address:
         - hostip: 192.168.15.7 #<IP-YOUR-GRAFANA>
-          port: 3000 #PORT PORTAINER
+          port: 3000 #PORT GRAFANA
       pathnginx: "grafana" #stay /grafana does not include / OK !? just the name
       prefixapp: "/"
 
@@ -26,7 +26,7 @@ nginx:
     - name: 'kibana'
       address:
         - hostip: 192.168.15.3 #<IP-YOUR-PORTAINER> 
-          port: 5601
+          port: 5601 #PORT KIBANA
       pathnginx: "kibana" #stay /kibana does not include / OK !? just the name
       prefixapp: "/"         
 ```
