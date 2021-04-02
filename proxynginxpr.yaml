@@ -12,5 +12,12 @@ nginx:
       address:
         - hostip: 192.168.15.3 #<IP-YOUR-PORTAINER> 
           port: 9000 #PORT PORTAINER
-      pathnginx: "portainer" #fica /portainer não inclua o / OK!? só o nome mesmo
+      pathnginx: "portainer" #stay /portainer does not include / OK !? just the name
       prefixapp: "/"
+
+    - name: 'kibana'
+      address:
+        - hostip: 192.168.15.3 #<IP-YOUR-PORTAINER> 
+          port: 5601
+      pathnginx: "kibana" #stay /kibana does not include / OK !? just the name
+      prefixapp: "/"      
