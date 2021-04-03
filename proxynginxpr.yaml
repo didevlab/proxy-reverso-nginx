@@ -1,23 +1,41 @@
+#CUSTON SERVER BY PATH NGINX
 portnginx: 80
 nginx:
   hosts:
     - name: 'grafana'
       address:
         - hostip: 192.168.15.7 #<IP-YOUR-GRAFANA>
-          port: 3000 #PORT PORTAINER
+          port: 3000 #PORT GRAFANA
       pathnginx: "grafana" #stay /grafana does not include / OK !? just the name
       prefixapp: "/"
 
     - name: 'portainer'
       address:
-        - hostip: 192.168.15.3 #<IP-YOUR-PORTAINER> 
-          port: 9000 #PORT PORTAINER
-      pathnginx: "portainer" #stay /portainer does not include / OK !? just the name
+        - hostip: 192.168.15.3
+          port: 9000 
+      pathnginx: "portainer" 
       prefixapp: "/"
 
     - name: 'kibana'
       address:
-        - hostip: 192.168.15.3 #<IP-YOUR-PORTAINER> 
+        - hostip: 192.168.15.3 
           port: 5601
-      pathnginx: "kibana" #stay /kibana does not include / OK !? just the name
-      prefixapp: "/"      
+      pathnginx: "kibana" 
+      prefixapp: "/"
+
+#CUSTON SERVER BY PORT NGINX
+hostprn:
+  hosts:
+    - name: 'minio'
+      portprn: 81
+      address:
+        - hostip: 192.168.15.3 
+          port: 9000
+      prefixapp: "/"
+
+    - name: 'jenkins'
+      portprn: 82
+      address:
+        - hostip: 192.168.15.3 
+          port: 8080
+      prefixapp: "/"
