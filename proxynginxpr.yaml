@@ -4,9 +4,9 @@ nginx:
   hosts:
     - name: 'grafana'
       address:
-        - hostip: 192.168.15.7 #<IP-YOUR-GRAFANA>
-          port: 3000 #PORT GRAFANA
-      pathnginx: "grafana" #stay /grafana does not include / OK !? just the name
+        - hostip: 192.168.15.7 #<IP-YOUR-APP>
+          port: 3000 #PORT APP
+      pathnginx: "grafana" #stay /app does not include / OK !? just the name
       prefixapp: "/"
 
     - name: 'portainer'
