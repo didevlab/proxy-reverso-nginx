@@ -4,10 +4,11 @@
 
 > You will configure only this file below:
 
+## Proxy by path prefix URL
 File example: proxynginxpr.yaml
 ```
-portnginx: 80
-nginx:
+nginxprefix:
+  portnginxprefix: 80
   hosts:
     - name: 'grafana'
       address:
@@ -30,7 +31,30 @@ nginx:
       pathnginx: "kibana" 
       prefixapp: "/"         
 ```
+- You will access: http://YOUR-IP-PROXY-REVERSE/grafana
 
+## Proxy by server port nginx
+File example: proxynginxpr.yaml
+```
+hostprn:
+  hosts:
+    - name: 'minio' #Enter the name of the app
+      portprn: 81 #Enter the port of the nginx server
+      address:
+        - hostip: 192.168.15.3 #Enter the port of the ip app
+          port: 9000 #Enter the port of the port app
+      prefixapp: "/" #Enter the port of the path
+
+    - name: 'jenkins'
+      portprn: 82
+      address:
+        - hostip: 192.168.15.3 
+          port: 8080
+      prefixapp: "/"
+```
+- You will access: http://YOUR-IP-PROXY-REVERSE:80/
+- You will access: http://YOUR-IP-PROXY-REVERSE:81/
+- You will access: http://YOUR-IP-PROXY-REVERSE:82/
 
 > Below is docker-compose.yaml mapping the proxynginxpr.yaml configuration file.
 
@@ -43,6 +67,8 @@ services:
     restart: always
     ports:
       - '80:80'
+      - '81:81'
+      - '82:82'
     volumes:
       - ./proxynginxpr.yaml:/proxynginxpr.yaml
     environment:

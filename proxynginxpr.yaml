@@ -1,6 +1,6 @@
-#CUSTON SERVER BY PATH NGINX
-portnginx: 80
-nginx:
+# #CUSTON SERVER BY PATH NGINX
+nginxprefix:
+  portnginxprefix: 80
   hosts:
     - name: 'grafana'
       address:
@@ -23,7 +23,7 @@ nginx:
       pathnginx: "kibana" 
       prefixapp: "/"
 
-#CUSTON SERVER BY PORT NGINX
+# #CUSTON SERVER BY PORT NGINX
 hostprn:
   hosts:
     - name: 'minio'
