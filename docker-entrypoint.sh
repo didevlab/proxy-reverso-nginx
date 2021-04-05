@@ -33,7 +33,7 @@ if [ ! -z "$EXISTNGINXPREFIX" ] && [ "$EXISTNGINXPREFIX" != "null" ]; then
     ##****CONFIG UPSTREAM****##
 
     ##****CONFIG SERVER LISTEN NGINX****##
-    NginxPort=$(yq eval '.portnginxprefix' proxynginxpr.yaml)
+    NginxPort=$(yq eval '.nginxprefix.portnginxprefix' proxynginxpr.yaml)
     echo "" >> /etc/nginx/conf.d/nginxpr.conf
     echo "#Config the server" >> /etc/nginx/conf.d/nginxpr.conf
     echo "server {" >> /etc/nginx/conf.d/nginxpr.conf
