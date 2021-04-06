@@ -65,15 +65,38 @@ services:
     image: didevlab/proxy-reverse-nginx:1.0
     container_name: nginx-proxy-reverso
     restart: always
-    ports:
-      - '80:80'
-      - '81:81'
-      - '82:82'
+    network_mode: host
     volumes:
       - ./proxynginxpr.yaml:/proxynginxpr.yaml
     environment:
       TZ: America/Sao_Paulo
 ```
+
+## Proxy by Stream server port nginx
+File example: proxynginxpr.yaml
+```
+# #CUSTON SERVER BY PORT NGINX STREAM
+hostprnstream:
+  hosts:
+    - name: 'mongodb'
+      portprn: 27017
+      address:
+        - hostip: 192.168.15.3
+          port: 27017
+
+    - name: 'redis'
+      portprn: 6379
+      address:
+        - hostip: 192.168.15.3
+          port: 6379
+    
+    - name: 'mysql'
+      portprn: 3306
+      address:
+        - hostip: 192.168.15.3
+          port: 3306
+```
+
 
 ```
 docker-compose up -d

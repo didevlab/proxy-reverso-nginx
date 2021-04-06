@@ -129,7 +129,8 @@ if [ ! -z "$EXISTNGINXCUSTOM" ] && [ "$EXISTNGINXCUSTOM" != "null" ]; then
 
 
         ##CONFIG LOCATION SERVER
-        echo "  location ~ ^/(/?)(.*)$ {" >> /etc/nginx/conf.d/$NameCustomNginx.conf
+        # echo "  location ~ ^/(/?)(.*)$ {" >> /etc/nginx/conf.d/$NameCustomNginx.conf
+        echo "  location / {" >> /etc/nginx/conf.d/$NameCustomNginx.conf
         echo "    proxy_http_version 1.1;" >> /etc/nginx/conf.d/$NameCustomNginx.conf   
         echo "    proxy_set_header Host \$http_host;" >> /etc/nginx/conf.d/$NameCustomNginx.conf 
         echo "    proxy_set_header X-Real-IP \$remote_addr;" >> /etc/nginx/conf.d/$NameCustomNginx.conf
@@ -139,7 +140,8 @@ if [ ! -z "$EXISTNGINXCUSTOM" ] && [ "$EXISTNGINXCUSTOM" != "null" ]; then
         echo '    proxy_set_header Connection "upgrade";' >> /etc/nginx/conf.d/$NameCustomNginx.conf
         echo "    proxy_buffers 32 4k;" >> /etc/nginx/conf.d/$NameCustomNginx.conf
 
-        echo '    set $upstream_endpoint http://'$NameCustomNginx$PrefixAppCustom'$2$is_args$args;' >> /etc/nginx/conf.d/$NameCustomNginx.conf
+        echo '    set $upstream_endpoint http://'$NameCustomNginx';' >> /etc/nginx/conf.d/$NameCustomNginx.conf
+        # echo '    set $upstream_endpoint http://'$NameCustomNginx$PrefixAppCustom'$2$is_args$args;' >> /etc/nginx/conf.d/$NameCustomNginx.conf
         echo '    proxy_pass $upstream_endpoint;' >> /etc/nginx/conf.d/$NameCustomNginx.conf
         echo "  }" >> /etc/nginx/conf.d/$NameCustomNginx.conf
 
@@ -152,7 +154,64 @@ fi
 ##CHECK EXIST hostprn##
 
 
+
+
+##CHECK EXIST hostprnstream##
+EXISTNGINXCUSTOMSTREAM=$(yq eval '.hostprnstream' proxynginxpr.yaml)
+if [ ! -z "$EXISTNGINXCUSTOMSTREAM" ] && [ "$EXISTNGINXCUSTOMSTREAM" != "null" ]; then
+    mkdir -p /etc/nginx/upstream.d/
+
+    ##****CONFIG SERVER CUSTOM STREAM LISTEN NGINX****##
+    QTDEHOSTCUSTOMSTREAM=$(yq eval '.hostprnstream.hosts|length' proxynginxpr.yaml)
+    for i in `seq 1 $QTDEHOSTCUSTOMSTREAM`
+    do
+        NameCustomNginxStream=$(yq eval '.hostprnstream.hosts['$(($i-1))'].name' proxynginxpr.yaml)
+        PortCustomNginxStream=$(yq eval '.hostprnstream.hosts['$(($i-1))'].portprn' proxynginxpr.yaml)
+        touch /etc/nginx/upstream.d/$NameCustomNginxStream.conf 
+        echo "" >  /etc/nginx/upstream.d/$NameCustomNginxStream.conf 
+
+        ##UPSTREAM
+        echo "upstream $NameCustomNginxStream {" >> /etc/nginx/upstream.d/$NameCustomNginxStream.conf 
+        QtdAddressCustomStream=$(yq eval '.hostprnstream.hosts['$(($i-1))'].address|length' proxynginxpr.yaml)
+        for j in `seq 1 $QtdAddressCustomStream`
+        do
+            hostipcustomstream=$(yq eval '.hostprnstream.hosts['$(($i-1))'].address['$(($j-1))'].hostip' proxynginxpr.yaml)
+            portcustomstream=$(yq eval '.hostprnstream.hosts['$(($i-1))'].address['$(($j-1))'].port' proxynginxpr.yaml)
+            echo "  server $hostipcustomstream:$portcustomstream;" >> /etc/nginx/upstream.d/$NameCustomNginxStream.conf 
+        done
+        echo "}" >> /etc/nginx/upstream.d/$NameCustomNginxStream.conf
+        echo "" >> /etc/nginx/upstream.d/$NameCustomNginxStream.conf
+        ##UPSTREAM
+
+
+        ##CONFIG SERVER
+        echo "" >> /etc/nginx/upstream.d/$NameCustomNginxStream.conf
+        echo "#Config the server custom $NameCustomNginxStream" >> /etc/nginx/upstream.d/$NameCustomNginxStream.conf
+        echo "server {" >> /etc/nginx/upstream.d/$NameCustomNginxStream.conf
+        echo "  #################################################################" >> /etc/nginx/upstream.d/$NameCustomNginxStream.conf
+        echo "  listen $PortCustomNginxStream;" >> /etc/nginx/upstream.d/$NameCustomNginxStream.conf
+        echo "  # error logging" >> /etc/nginx/upstream.d/$NameCustomNginxStream.conf
+        echo '  error_log /var/log/nginx/prn_stream_'$NameCustomNginxStream'_error.log;' >> /etc/nginx/upstream.d/$NameCustomNginxStream.conf
+        echo "  # access logging" >> /etc/nginx/upstream.d/$NameCustomNginxStream.conf
+
+        echo "  proxy_buffer_size 64k;" >> /etc/nginx/upstream.d/$NameCustomNginxStream.conf
+        echo "  proxy_pass $NameCustomNginxStream;" >> /etc/nginx/upstream.d/$NameCustomNginxStream.conf
+        echo "  #################################################################" >> /etc/nginx/upstream.d/$NameCustomNginxStream.conf
+        echo "}" >> /etc/nginx/upstream.d/$NameCustomNginxStream.conf
+        echo "" >> /etc/nginx/upstream.d/$NameCustomNginxStream.conf
+        cat /etc/nginx/upstream.d/$NameCustomNginxStream.conf
+
+
+    done
+    ##****CONFIG SERVER CUSTOM STREAM LISTEN NGINX****##
+
+fi
+##CHECK EXIST hostprnstream##
+
+
+
 ls /etc/nginx/conf.d/
+ls /etc/nginx/upstream.d/
 ls /etc/nginx/conf.d/location.d/
 # cat /etc/nginx/conf.d/jenkins.location
 

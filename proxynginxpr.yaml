@@ -39,3 +39,13 @@ hostprn:
         - hostip: 192.168.15.3 
           port: 8080
       prefixapp: "/"
+
+
+# #CUSTON SERVER BY PORT NGINX STREAM
+hostprnstream:
+  hosts:
+    - name: 'minio'
+      portprn: 9000
+      address:
+        - hostip: 192.168.15.3 
+          port: 9000
