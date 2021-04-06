@@ -44,8 +44,20 @@ hostprn:
 # #CUSTON SERVER BY PORT NGINX STREAM
 hostprnstream:
   hosts:
-    - name: 'minio'
-      portprn: 9000
+    - name: 'mongodb'
+      portprn: 27017
       address:
-        - hostip: 192.168.15.3 
-          port: 9000
+        - hostip: 192.168.15.3
+          port: 27017
+
+    - name: 'redis'
+      portprn: 6379
+      address:
+        - hostip: 192.168.15.3
+          port: 6379
+    
+    - name: 'mysql'
+      portprn: 3306
+      address:
+        - hostip: 192.168.15.3
+          port: 3306
