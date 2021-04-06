@@ -101,4 +101,3 @@ hostprnstream:
 ```
 docker-compose up -d
 ```
-- You will access: http://YOUR-IP-PROXY-REVERSE/grafana
