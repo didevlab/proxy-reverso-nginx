@@ -184,9 +184,9 @@ if [ ! -z "$EXISTNGINXCUSTOMSTREAM" ] && [ "$EXISTNGINXCUSTOMSTREAM" != "null" ]
         ##UPSTREAM
 
 
-        ##CONFIG SERVER
+        ##CONFIG SERVER TCP
         echo "" >> /etc/nginx/upstream.d/$NameCustomNginxStream.conf
-        echo "#Config the server custom $NameCustomNginxStream" >> /etc/nginx/upstream.d/$NameCustomNginxStream.conf
+        echo "#Config the server custom TCP $NameCustomNginxStream" >> /etc/nginx/upstream.d/$NameCustomNginxStream.conf
         echo "server {" >> /etc/nginx/upstream.d/$NameCustomNginxStream.conf
         echo "  #################################################################" >> /etc/nginx/upstream.d/$NameCustomNginxStream.conf
         echo "  listen $PortCustomNginxStream;" >> /etc/nginx/upstream.d/$NameCustomNginxStream.conf
@@ -199,6 +199,27 @@ if [ ! -z "$EXISTNGINXCUSTOMSTREAM" ] && [ "$EXISTNGINXCUSTOMSTREAM" != "null" ]
         echo "  #################################################################" >> /etc/nginx/upstream.d/$NameCustomNginxStream.conf
         echo "}" >> /etc/nginx/upstream.d/$NameCustomNginxStream.conf
         echo "" >> /etc/nginx/upstream.d/$NameCustomNginxStream.conf
+        ##CONFIG SERVER TCP
+
+        ##CONFIG SERVER UDP
+        echo "" >> /etc/nginx/upstream.d/$NameCustomNginxStream.conf
+        echo "#Config the server custom UDP $NameCustomNginxStream" >> /etc/nginx/upstream.d/$NameCustomNginxStream.conf
+        echo "server {" >> /etc/nginx/upstream.d/$NameCustomNginxStream.conf
+        echo "  #################################################################" >> /etc/nginx/upstream.d/$NameCustomNginxStream.conf
+        echo "  listen $PortCustomNginxStream udp;" >> /etc/nginx/upstream.d/$NameCustomNginxStream.conf
+        echo "  # error logging" >> /etc/nginx/upstream.d/$NameCustomNginxStream.conf
+        echo '  error_log /var/log/nginx/prn_stream_'$NameCustomNginxStream'_error.log;' >> /etc/nginx/upstream.d/$NameCustomNginxStream.conf
+        echo "  # access logging" >> /etc/nginx/upstream.d/$NameCustomNginxStream.conf
+
+        echo "  proxy_buffer_size 64k;" >> /etc/nginx/upstream.d/$NameCustomNginxStream.conf
+        echo "  proxy_pass $NameCustomNginxStream;" >> /etc/nginx/upstream.d/$NameCustomNginxStream.conf
+        echo "  #################################################################" >> /etc/nginx/upstream.d/$NameCustomNginxStream.conf
+        echo "}" >> /etc/nginx/upstream.d/$NameCustomNginxStream.conf
+        echo "" >> /etc/nginx/upstream.d/$NameCustomNginxStream.conf
+        ##CONFIG SERVER UDP
+
+
+
         cat /etc/nginx/upstream.d/$NameCustomNginxStream.conf
 
 
@@ -214,6 +235,15 @@ ls /etc/nginx/conf.d/
 ls /etc/nginx/upstream.d/
 ls /etc/nginx/conf.d/location.d/
 # cat /etc/nginx/conf.d/jenkins.location
+
+
+
+
+
+
+
+
+
 
 
 

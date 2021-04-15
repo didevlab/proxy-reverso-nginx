@@ -61,3 +61,11 @@ hostprnstream:
       address:
         - hostip: 192.168.15.3
           port: 3306
+
+    - name: 'example'
+      portprn: 30120
+      address:
+        - hostip: 192.168.15.3
+          port: 30121
+        - hostip: 192.168.15.3
+          port: 30122
