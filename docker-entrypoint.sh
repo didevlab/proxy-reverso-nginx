@@ -40,6 +40,7 @@ if [ ! -z "$EXISTNGINXPREFIX" ] && [ "$EXISTNGINXPREFIX" != "null" ]; then
     echo "  #######################################" >> /etc/nginx/conf.d/nginxpr.conf
     echo "  listen $NginxPort;" >> /etc/nginx/conf.d/nginxpr.conf
     echo "  server_name prn.nginxpr.com;" >> /etc/nginx/conf.d/nginxpr.conf
+    echo "  client_max_body_size 100M;" >>/etc/nginx/conf.d/nginxpr.conf
     echo "  # error logging" >> /etc/nginx/conf.d/nginxpr.conf
     echo "  error_log /var/log/nginx/prn_error.log debug;" >> /etc/nginx/conf.d/nginxpr.conf
     echo "  access_log /var/log/nginx/prn_access.log;" >> /etc/nginx/conf.d/nginxpr.conf
@@ -119,7 +120,8 @@ if [ ! -z "$EXISTNGINXCUSTOM" ] && [ "$EXISTNGINXCUSTOM" != "null" ]; then
         echo "server {" >> /etc/nginx/conf.d/$NameCustomNginx.conf
         echo "  #################################################################" >> /etc/nginx/conf.d/$NameCustomNginx.conf
         echo "  listen $PortCustomNginx;" >> /etc/nginx/conf.d/$NameCustomNginx.conf
-        echo "  server_name prn.$NameCustomNginx.com;" >> /etc/nginx/conf.d/$NameCustomNginx.conf
+        echo "  server_name prn.$NameCustomNginx.com;" >> /etc/nginx/conf.d/$NameCustomNginx.conf        
+        echo "  client_max_body_size 100M;" >> /etc/nginx/conf.d/$NameCustomNginx.conf
         echo "  # error logging" >> /etc/nginx/conf.d/$NameCustomNginx.conf
         echo '  error_log /var/log/nginx/prn_'$NameCustomNginx'_error.log debug;' >> /etc/nginx/conf.d/$NameCustomNginx.conf
         echo "  # access logging" >> /etc/nginx/conf.d/$NameCustomNginx.conf
@@ -138,7 +140,7 @@ if [ ! -z "$EXISTNGINXCUSTOM" ] && [ "$EXISTNGINXCUSTOM" != "null" ]; then
         echo "    proxy_set_header X-Forwarded-Proto \$scheme;" >> /etc/nginx/conf.d/$NameCustomNginx.conf
         echo "    proxy_read_timeout                 900;" >> /etc/nginx/conf.d/$NameCustomNginx.conf
         echo '    proxy_set_header Connection "upgrade";' >> /etc/nginx/conf.d/$NameCustomNginx.conf
-        echo "    proxy_buffers 32 4k;" >> /etc/nginx/conf.d/$NameCustomNginx.conf
+        echo "    proxy_buffers 32 4k;" >> /etc/nginx/conf.d/$NameCustomNginx.conf        
 
         echo '    set $upstream_endpoint http://'$NameCustomNginx';' >> /etc/nginx/conf.d/$NameCustomNginx.conf
         # echo '    set $upstream_endpoint http://'$NameCustomNginx$PrefixAppCustom'$2$is_args$args;' >> /etc/nginx/conf.d/$NameCustomNginx.conf
